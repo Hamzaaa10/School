@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace School.Data.Models
 {
-    public class DepartmetSubject
+    public class DepartmentSubject
     {
-
         [Key]
         public int DID { get; set; }
         [Key]
@@ -18,6 +17,5 @@ namespace School.Data.Models
         [ForeignKey("SubID")]
         [InverseProperty("DepartmetsSubjects")]
         public virtual Subject? Subject { get; set; }
-
     }
 }

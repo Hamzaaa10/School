@@ -17,7 +17,7 @@ namespace School.Data.Models
         public string? Address { get; set; }
         public string? Position { get; set; }
         public int? SupervisorId { get; set; }
-        public decimal? Salary { get; set; }
+        public double? Salary { get; set; }
         public string? Image { get; set; }
         public int DID { get; set; }
         [ForeignKey(nameof(DID))]
@@ -31,6 +31,7 @@ namespace School.Data.Models
         [ForeignKey(nameof(SupervisorId))]
         [InverseProperty("Instructors")]
         public Instructor? Supervisor { get; set; }
+
         [InverseProperty("Supervisor")]
         public virtual ICollection<Instructor> Instructors { get; set; }
 

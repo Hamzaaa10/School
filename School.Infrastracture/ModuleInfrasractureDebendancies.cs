@@ -2,11 +2,6 @@
 using School.Infrastracture.AbstractRepository;
 using School.Infrastracture.Bases;
 using School.Infrastracture.ImplemintationRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace School.Infrastracture
 {
@@ -15,6 +10,10 @@ namespace School.Infrastracture
         public static IServiceCollection AddInfrasractureDebendancies(this IServiceCollection services)
         {
             services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<ISubjectRepository, SubjectRepository>();
+            services.AddTransient<IInstractorRepository, InstractorRepository>();
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
             services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             return services;
 

@@ -9,7 +9,7 @@ namespace School.Data.Models
         public int StudID { get; set; }
         [Key]
         public int SubID { get; set; }
-        public decimal? grade { get; set; }
+        public double? grade { get; set; }
 
         [ForeignKey("StudID")]
         [InverseProperty("StudentSubject")]
