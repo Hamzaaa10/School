@@ -1,18 +1,20 @@
 ﻿using FluentValidation;
-using School.Core.Features.Command.Models;
+using School.Core.Features.StudentFeatures.Command.Models;
 using School.Service.Abstract;
 
-namespace School.Core.Features.Command.Valedations
+namespace School.Core.Features.StudentFeatures.Command.Valedations
 {
     public class EditStudentValidator : AbstractValidator<EditStudentCommand>
     {
         private readonly IStudentService _studentService;
+        private readonly IDepartmentService _departmentService;
 
-        public EditStudentValidator(IStudentService studentService)
+        public EditStudentValidator(IStudentService studentService, IDepartmentService departmentService)
         {
             ApplayValidationrules();
             ApplayCustomValidationrules();
-            this._studentService = studentService;
+            _studentService = studentService;
+            _departmentService = departmentService;
         }
         public void ApplayValidationrules()
         {
@@ -24,6 +26,9 @@ namespace School.Core.Features.Command.Valedations
         {
             RuleFor(x => x.Name)
                     .MustAsync(async (model, key, CancellationToken) => !await _studentService.IsNameExcludeExists(key, model.ID)).WithMessage("name is exist");
+
+            RuleFor(x => x.DepartmentId)
+                    .MustAsync(async (key, CancellationToken) => await _departmentService.IsDepartmentIdExists(key)).WithMessage("Department is not exist");
         }
     }
 

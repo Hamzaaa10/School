@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using School.Core.Bases;
 
-namespace School.Core.Features.Command.Models
+namespace School.Core.Features.StudentFeatures.Command.Models
 {
     public class EditStudentCommand : IRequest<Response<string>>
     {

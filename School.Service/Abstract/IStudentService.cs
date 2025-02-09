@@ -14,6 +14,8 @@ namespace School.Service.Abstract
         public Task<bool> IsNameExcludeExists(string name, int id);
         public Task<string> DeleteStudentAsync(Student student);
         public IQueryable<Student> GetStudentsQuarable(string SearchBy, StudentOrderingEnum OrderBy);
+        public IQueryable<Student> GetStudentsByDepartmentQuarable(int DID);
+
 
     }
 }

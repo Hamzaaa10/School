@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using School.Core.Features.Queries.Responses;
+using School.Core.Features.StudentFeatures.Queries.Responses;
 using School.Core.Wrappers;
 using School.Data.Helpers;
 
-namespace School.Core.Features.Queries.Models
+namespace School.Core.Features.StudentFeatures.Queries.Models
 {
     public class GetStudentListPaginationQuery : IRequest<PaginatedResult<GetStudentListPagintionResponse>>
     {

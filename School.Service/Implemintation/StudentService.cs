@@ -98,5 +98,11 @@ namespace School.Service.Implemintation
             }
             return Quareble;
         }
+
+        public IQueryable<Student> GetStudentsByDepartmentQuarable(int DID)
+        {
+            var Quareble = _studentRepository.GetTableNoTracking().Where(x => x.DID == DID).AsQueryable();
+            return Quareble;
+        }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using School.Core.Bases;
-using School.Core.Features.Queries.Responses;
+using School.Core.Features.StudentFeatures.Queries.Responses;
 
-namespace School.Core.Features.Queries.Models
+namespace School.Core.Features.StudentFeatures.Queries.Models
 {
     public class GetStudentListQuery : IRequest<Response<List<GetStudentListResponse>>>
     {

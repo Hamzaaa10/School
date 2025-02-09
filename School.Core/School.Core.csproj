@@ -20,4 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mapping\DepartmentMapping\Command\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using School.Core.Features.Command.Models;
+﻿using School.Core.Features.StudentFeatures.Command.Models;
 using School.Data.Models;
 
 namespace School.Core.Mapping.StudentMapping

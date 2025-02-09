@@ -1,4 +1,4 @@
-﻿using School.Core.Features.Queries.Responses;
+﻿using School.Core.Features.StudentFeatures.Queries.Responses;
 using School.Data.Models;
 
 namespace School.Core.Mapping.StudentMapping

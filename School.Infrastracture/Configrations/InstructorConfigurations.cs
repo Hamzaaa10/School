@@ -21,9 +21,9 @@ namespace School.Infrastracture.Configrations
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(i => i.departmentManager)
-         .WithOne(d => d.Instructor)
-         .HasForeignKey<Department>(d => d.InsManager)
-         .OnDelete(DeleteBehavior.Restrict);
+                 .WithOne(d => d.Instructor)
+                 .HasForeignKey<Department>(d => d.InsManager)
+                 .OnDelete(DeleteBehavior.Restrict);
 
 
             builder.HasMany(i => i.Ins_Subjects)

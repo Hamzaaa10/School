@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using School.Core.Bases;
-using School.Core.Features.Queries.Models;
-using School.Core.Features.Queries.Responses;
+using School.Core.Features.StudentFeatures.Queries.Models;
+using School.Core.Features.StudentFeatures.Queries.Responses;
 using School.Core.Wrappers;
 using School.Core.Wrappers.SchoolProject.Core.Wrappers;
 using School.Data.Models;
@@ -10,7 +10,7 @@ using School.Service.Abstract;
 using System.Linq.Expressions;
 
 
-namespace School.Core.Features.Queries.Handelers
+namespace School.Core.Features.StudentFeatures.Queries.Handelers
 {
     public class StudentHundeller : ResponseHandler, IRequestHandler<GetStudentListQuery, Response<List<GetStudentListResponse>>>,
                                                      IRequestHandler<GetStudentByIdQuery, Response<GetStudentResponse>>,
@@ -23,9 +23,9 @@ namespace School.Core.Features.Queries.Handelers
         //private readonly IStringLocalizer<SharedResources> _stringLocalizer;
         public StudentHundeller(IStudentService studentService, IMapper mapper)//, IStringLocalizer<SharedResources> stringLocalizer)
         {
-            this._studentService = studentService;
+            _studentService = studentService;
             // this._stringLocalizer = stringLocalizer;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
         public async Task<Response<List<GetStudentListResponse>>> Handle(GetStudentListQuery request, CancellationToken cancellationToken)
         {

@@ -20,7 +20,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddServiceDebendancies()
                 .AddInfrasractureDebendancies()
-                .AddCoreDebendancies();
+                .AddCoreDebendancies()
+                .AddServiceRegistration();
 
 /*builder.Services.Configure<RequestLocalizationOptions>(options =>
 {

@@ -1,4 +1,4 @@
-﻿namespace School.Core.Features.Queries.Responses
+﻿namespace School.Core.Features.StudentFeatures.Queries.Responses
 {
     public class GetStudentListPagintionResponse
     {
@@ -9,10 +9,10 @@
 
         public GetStudentListPagintionResponse(int studId, string name, string address, string deptname)
         {
-            this.StudID = studId;
-            this.Name = name;
-            this.Address = address;
-            this.DepartementName = deptname;
+            StudID = studId;
+            Name = name;
+            Address = address;
+            DepartementName = deptname;
         }
 
     }

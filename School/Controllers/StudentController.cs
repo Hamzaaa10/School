@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using School.Api.Base;
-using School.Core.Features.Command.Models;
-using School.Core.Features.Queries.Models;
+using School.Core.Features.StudentFeatures.Command.Models;
+using School.Core.Features.StudentFeatures.Queries.Models;
 using School.Data.AppMetaData;
 
 namespace School.Api.Controllers

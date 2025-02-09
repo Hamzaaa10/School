@@ -1,13 +1,8 @@
 ﻿using MediatR;
 using School.Core.Bases;
-using School.Core.Features.Queries.Responses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using School.Core.Features.StudentFeatures.Queries.Responses;
 
-namespace School.Core.Features.Queries.Models
+namespace School.Core.Features.StudentFeatures.Queries.Models
 {
     public class GetStudentByIdQuery : IRequest<Response<GetStudentResponse>>
     {

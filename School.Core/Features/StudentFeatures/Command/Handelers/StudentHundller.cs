@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
 using School.Core.Bases;
-using School.Core.Features.Command.Models;
+using School.Core.Features.StudentFeatures.Command.Models;
 using School.Data.Models;
 using School.Service.Abstract;
 
-namespace School.Core.Features.Command.Handelers
+namespace School.Core.Features.StudentFeatures.Command.Handelers
 {
     public class StudentHundller : ResponseHandler, IRequestHandler<AddStudentCommand, Response<string>>
                                                   , IRequestHandler<EditStudentCommand, Response<string>>
@@ -16,8 +16,8 @@ namespace School.Core.Features.Command.Handelers
 
         public StudentHundller(IStudentService studentService, IMapper mapper)
         {
-            this._studentService = studentService;
-            this._mapper = mapper;
+            _studentService = studentService;
+            _mapper = mapper;
         }
 
         public async Task<Response<string>> Handle(AddStudentCommand request, CancellationToken cancellationToken)

@@ -97,7 +97,8 @@ namespace School.Infrastracture.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    StudID = table.Column<int>(type: "int", nullable: false),
+                    StudID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
@@ -107,8 +108,8 @@ namespace School.Infrastracture.Migrations
                 {
                     table.PrimaryKey("PK_Students", x => x.StudID);
                     table.ForeignKey(
-                        name: "FK_Students_Departments_StudID",
-                        column: x => x.StudID,
+                        name: "FK_Students_Departments_DID",
+                        column: x => x.DID,
                         principalTable: "Departments",
                         principalColumn: "DID",
                         onDelete: ReferentialAction.Restrict);
@@ -189,6 +190,11 @@ namespace School.Infrastracture.Migrations
                 name: "IX_Instructor_SupervisorId",
                 table: "Instructor",
                 column: "SupervisorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_DID",
+                table: "Students",
+                column: "DID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentSubjects_StudID",

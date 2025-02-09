@@ -10,9 +10,15 @@ namespace School.Infrastracture.Configrations
         {
             builder.HasKey(k => k.StudID);
 
+            // Configure StudID as an Identity (Auto-Increment)
+            builder.Property(k => k.StudID)
+                   .ValueGeneratedOnAdd();
+
+
+
             builder.HasOne(x => x.Department)
                    .WithMany(x => x.Students)
-                   .HasForeignKey(x => x.StudID)
+                   .HasForeignKey(x => x.DID)
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.StudentSubject)

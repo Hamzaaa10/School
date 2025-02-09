@@ -1,6 +1,6 @@
-﻿namespace School.Core.Features.Queries.Responses
+﻿namespace School.Core.Features.StudentFeatures.Queries.Responses
 {
-    public class GetStudentListResponse
+    public class GetStudentResponse
     {
         public int StudID { get; set; }
         public string? Name { get; set; }
