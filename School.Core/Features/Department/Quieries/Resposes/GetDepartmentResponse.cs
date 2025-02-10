@@ -1,6 +1,6 @@
 ﻿using School.Core.Wrappers;
 
-namespace School.Core.Features.Department.Resposes
+namespace School.Core.Features.Department.Quieries.Resposes
 {
 
     public class GetDepartmentResponse

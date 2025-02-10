@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using MediatR;
 using School.Core.Bases;
-using School.Core.Features.Department.Models;
-using School.Core.Features.Department.Resposes;
+using School.Core.Features.Department.Quieries.Models;
+using School.Core.Features.Department.Quieries.Resposes;
 using School.Core.Wrappers.SchoolProject.Core.Wrappers;
 using School.Data.Models;
 using School.Service.Abstract;
 using System.Linq.Expressions;
 
-namespace School.Core.Features.Department.Handellers
+namespace School.Core.Features.Department.Quieries.Handellers
 {
     public class DepartmentHandelers :
 

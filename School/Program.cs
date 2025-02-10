@@ -31,6 +31,26 @@ builder.Services.AddServiceDebendancies()
         .AddSupportedUICultures(supportedCultures);
 });*/
 
+
+
+
+
+
+#region AllowCORS
+var CORS = "_cors";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: CORS,
+                      policy =>
+                      {
+                          policy.AllowAnyHeader();
+                          policy.AllowAnyMethod();
+                          policy.AllowAnyOrigin();
+                      });
+});
+
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,6 +67,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
+app.UseCors(CORS);
+
 app.UseSwaggerUI(o => o.SwaggerEndpoint("/openapi/v1.json", "Swagger Demo"));
 
 app.UseAuthorization();

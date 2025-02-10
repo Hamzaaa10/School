@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-
-
+using School.Data.Models.Identity;
+using School.Infrastracture.Data;
 
 
 namespace School.Infrastracture
@@ -12,6 +12,9 @@ namespace School.Infrastracture
 
         public static IServiceCollection AddServiceRegistration(this IServiceCollection services)
         {
+            services.AddIdentityCore<User>(options => options.SignIn.RequireConfirmedAccount = true)
+           .AddEntityFrameworkStores<AppDbContext>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -31,10 +34,11 @@ namespace School.Infrastracture
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
-            })//.AddEntityFramworkStores<AppDbContext>().AddDefaultTokenProvider()
-              ;
-            return services;
+            });
 
+            return services;
         }
+
     }
 }
+

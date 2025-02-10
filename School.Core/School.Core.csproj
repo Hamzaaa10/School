@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Department\Commands\" />
     <Folder Include="Mapping\DepartmentMapping\Command\" />
   </ItemGroup>
 

@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using School.Core.Bases;
-using School.Core.Features.Department.Resposes;
+using School.Core.Features.Department.Quieries.Resposes;
 
-namespace School.Core.Features.Department.Models
+namespace School.Core.Features.Department.Quieries.Models
 {
     public class GetDepartmentByIdQuery : IRequest<Response<GetDepartmentResponse>>
     {
