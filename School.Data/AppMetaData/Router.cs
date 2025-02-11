@@ -40,6 +40,9 @@
             public const string Update = Prefix + "/Edit";
             public const string Delete = Prefix + "/Delete" + "/{id}";
             public const string Paginated = Prefix + "/Paginated";
+            public const string ChangePassword = Prefix + "/Change-Password";
+
+
 
         }
 
