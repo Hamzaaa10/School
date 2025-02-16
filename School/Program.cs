@@ -21,7 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddServiceDebendancies()
                 .AddInfrasractureDebendancies()
                 .AddCoreDebendancies()
-                .AddServiceRegistration();
+                .AddServiceRegistration(builder.Configuration);
+
 
 /*builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -70,8 +71,9 @@ app.UseHttpsRedirection();
 app.UseCors(CORS);
 
 app.UseSwaggerUI(o => o.SwaggerEndpoint("/openapi/v1.json", "Swagger Demo"));
-
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

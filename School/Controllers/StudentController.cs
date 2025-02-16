@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using School.Api.Base;
 using School.Core.Features.StudentFeatures.Command.Models;
 using School.Core.Features.StudentFeatures.Queries.Models;
@@ -7,6 +8,7 @@ using School.Data.AppMetaData;
 namespace School.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     public class StudentController : AppControllerBase
     {
 
@@ -19,12 +21,14 @@ namespace School.Api.Controllers
             return NewResult(Response);
         }
         [HttpGet(Router.StudentRouting.GetByID)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetStudentListAsync(int id)
         {
             var Response = await Mediator.Send(new GetStudentByIdQuery(id));
             return NewResult(Response);
         }
         [HttpPost(Router.StudentRouting.Create)]
+        [AllowAnonymous]
         public async Task<IActionResult> AddStudent([FromBody] AddStudentCommand command)
         {
             var Response = await Mediator.Send(command);

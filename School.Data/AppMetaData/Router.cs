@@ -42,6 +42,13 @@
             public const string Paginated = Prefix + "/Paginated";
             public const string ChangePassword = Prefix + "/Change-Password";
 
+        }
+        public static class AuthenticationRouting
+        {
+            public const string Prefix = Rule + "Authentication";
+            public const string SignIn = Prefix + "/SignIn";
+            public const string RefreshToken = Prefix + "/RefreshToken";
+            public const string ValidateToken = Prefix + "/ValidateToken";
 
 
         }

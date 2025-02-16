@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using School.Infrastracture.AbstractRepository;
+using School.Infrastracture.ImplemintationRepository;
 using School.Service.Abstract;
 using School.Service.Implemintation;
 
@@ -11,7 +13,8 @@ namespace School.Service
         {
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<IDepartmentService, DepartmentService>();
-
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
             return services;
 
         }

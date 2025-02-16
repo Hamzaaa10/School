@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace School.Infrastracture.Data
 {
-    public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
+    public class AppDbContext : IdentityDbContext<User, ApplicationRole, int, IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<User> User { get; set; }
@@ -16,7 +16,7 @@ namespace School.Infrastracture.Data
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<DepartmentSubject> DepartmetSubjects { get; set; }
         public DbSet<StudentSubject> StudentSubjects { get; set; }
-
+        public DbSet<UserRefreshToken> UserRefreshToken { get; set; }
 
 
 
