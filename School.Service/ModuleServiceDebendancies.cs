@@ -15,6 +15,7 @@ namespace School.Service
             services.AddTransient<IDepartmentService, DepartmentService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+            services.AddTransient<IAuthorizationService, AuthorizationService>();
             return services;
 
         }

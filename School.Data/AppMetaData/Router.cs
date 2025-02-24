@@ -52,6 +52,24 @@
 
 
         }
+        public static class AuthorizationRouting
+        {
+            public const string Prefix = Rule + "Authorization";
+            public const string Create = Prefix + "/Role" + "/Create";
+            public const string Update = Prefix + "/Role" + "/Update";
+            public const string Delete = Prefix + "/Role" + "/Delete" + "/{id}";
+            public const string GetAll = Prefix + "/Role" + "/GetAll";
+            public const string GetById = Prefix + "/Role" + "/GetById" + "/{id}";
+            public const string ManageUserRole = Prefix + "/Role" + "/ManageUserRole" + "/{id}";
+            public const string ManageUserClaims = Prefix + "/Claim" + "/ManageUserClaims" + "/{id}";
+            public const string UpdateUserRoles = Prefix + "/Role" + "/UpdateUserRoles";
+            public const string UpdateUserClaims = Prefix + "/Claim" + "/UpdateUserClaims";
+
+
+
+
+
+        }
 
     }
 }

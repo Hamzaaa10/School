@@ -27,6 +27,8 @@ namespace School.Core.Features.UserFeatures.Commands.Validations
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password is requierd")
                                     .NotNull().WithMessage("Password can't be nulll");
 
+
+
             RuleFor(x => x.ConfirmPassword).Equal(x => x.Password).WithMessage("confirmpassword must matches Password ");
 
 

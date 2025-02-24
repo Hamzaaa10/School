@@ -19,6 +19,7 @@ namespace School.Core.Features.UserFeatures.Commands.Validations
             RuleFor(x => x.CurrentPassword).NotEmpty().WithMessage("Password is requierd")
                                        .NotNull().WithMessage("Password can't be nulll");
 
+
             RuleFor(x => x.NewPassword).NotEmpty().WithMessage("Password is requierd")
                                        .NotNull().WithMessage("Password can't be nulll");
 

@@ -19,32 +19,39 @@ namespace School.Infrastracture
         public static IServiceCollection AddServiceRegistration(this IServiceCollection services, IConfiguration configuration)
         {
 
-
-            services.AddIdentityCore<User>(options =>
-            options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<AppDbContext>()
-            .AddSignInManager();
-
-            services.Configure<IdentityOptions>(options =>
+            services.AddIdentity<User, ApplicationRole>(options =>
             {
-                // Password settings.
+                // Sign-in settings
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+
+                // Password settings
                 options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireLowercase = true;
 
-                // Lockout settings.
+                // User settings
+                options.User.RequireUniqueEmail = true;
+
+                // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
-                // User settings.
                 options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = false;
-            });
+                  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders()
+                .AddRoleManager<RoleManager<ApplicationRole>>()
+                .AddSignInManager<SignInManager<User>>()
+                .AddRoleValidator<RoleValidator<ApplicationRole>>();
+
+
+
+
             //JWT Authentication
             var jwtSettings = new Jwtsettings();
             //  var emailSettings = new EmailSettings();
@@ -107,7 +114,24 @@ namespace School.Infrastracture
            });
             });
 
-
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("CreateStudent", policy =>
+                {
+                    policy.RequireClaim("Create Student", "True");
+                }
+                               );
+                option.AddPolicy("DeleteStudent", policy =>
+                {
+                    policy.RequireClaim("Delete Student", "True");
+                }
+                               );
+                option.AddPolicy("EditStudent", policy =>
+                {
+                    policy.RequireClaim("Edit Student", "True");
+                }
+                               );
+            });
             return services;
         }
 

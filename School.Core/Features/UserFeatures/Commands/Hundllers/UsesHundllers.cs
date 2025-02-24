@@ -18,6 +18,7 @@ namespace School.Core.Features.UserFeatures.Commands.Hundllers
         private readonly UserManager<User> _userManager;
 
 
+
         public UsesHundllers(UserManager<User> userManager, IMapper mapper)
         {
             this._mapper = mapper;
@@ -31,11 +32,11 @@ namespace School.Core.Features.UserFeatures.Commands.Hundllers
             var userdb = await _userManager.FindByNameAsync(request.UserName);
             if (userdb != null) return BadRequest<string>("the username is exists");
             var NewUser = _mapper.Map<User>(request);
-
             var result = await _userManager.CreateAsync(NewUser, request.Password);
-            if (!result.Succeeded) return BadRequest<string>(result.Errors.FirstOrDefault().Description);
 
-            return Success("Added succsesfully");
+            if (!result.Succeeded) return BadRequest<string>(result.Errors.FirstOrDefault().Description);
+            await _userManager.AddToRoleAsync(NewUser, "User");
+            return Created("Added succsesfully");
 
         }
 

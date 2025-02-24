@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Data.Helpers;
+using School.Data.Enums;
 using School.Data.Models;
 using School.Infrastracture.AbstractRepository;
 using School.Service.Abstract;

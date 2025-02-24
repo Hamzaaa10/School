@@ -1,4 +1,4 @@
-﻿using School.Data.Helpers;
+﻿using School.Data.Enums;
 using School.Data.Models;
 
 namespace School.Service.Abstract

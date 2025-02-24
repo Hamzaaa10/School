@@ -16,12 +16,14 @@ namespace School.Core.Features.Authentication.Command.Hundellers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IAuthenticationService _authenticationService;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public AuthenticationCommandHundller(UserManager<User> userManager, SignInManager<User> signInManager, IAuthenticationService authenticationService)
+        public AuthenticationCommandHundller(UserManager<User> userManager, SignInManager<User> signInManager, IAuthenticationService authenticationService, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _authenticationService = authenticationService;
+            _roleManager = roleManager;
         }
         public async Task<Response<JwtAuthResponse>> Handle(SignInCommand request, CancellationToken cancellationToken)
         {

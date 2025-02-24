@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using School.Data.Helpers;
 using School.Data.Models.Identity;
@@ -15,23 +16,32 @@ namespace School.Service.Implemintation
     {
         private readonly Jwtsettings _jwtsettings;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly UserManager<User> _userManager;
+
         // private readonly IEncryptionProvider _encryptionProvider;
 
 
-        public AuthenticationService(Jwtsettings jwtsettings, IRefreshTokenRepository refreshTokenRepository)
+        public AuthenticationService(Jwtsettings jwtsettings, IRefreshTokenRepository refreshTokenRepository, UserManager<User> userManager)
         {
             _jwtsettings = jwtsettings;
             _refreshTokenRepository = refreshTokenRepository;
+            _userManager = userManager;
         }
-        public List<Claim> GetClaims(User user)
+        public async Task<List<Claim>> GetClaims(User user)
         {
+            var roles = await _userManager.GetRolesAsync(user);
+            var UserClaims = await _userManager.GetClaimsAsync(user);
             var claims = new List<Claim>() {
-                new Claim (nameof(UserClaimsModel.Email), user.Email)  ,
+                new Claim(nameof(UserClaimsModel.Email), user.Email)  ,
                 new Claim(nameof(UserClaimsModel.UserName), user.UserName),
                 new Claim(nameof(UserClaimsModel.PhoneNumber), user.PhoneNumber),
                 new Claim(nameof(UserClaimsModel.Id), user.Id.ToString())
-
                 };
+            claims.AddRange(UserClaims);
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
             return claims;
         }
         private string GeneratetRefreshToken()
@@ -60,7 +70,7 @@ namespace School.Service.Implemintation
             var jwtToken = new JwtSecurityToken(
              issuer: _jwtsettings.Issuer,
              audience: _jwtsettings.Audience,
-             claims: GetClaims(user),
+             claims: await GetClaims(user),
              notBefore: DateTime.Now,
              expires: DateTime.Now.AddMinutes(_jwtsettings.AccessTokenExpireDate),
              signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtsettings.Secret)), SecurityAlgorithms.HmacSha256Signature)
