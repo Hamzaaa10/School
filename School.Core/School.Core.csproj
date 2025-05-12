@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Department\Commands\" />
-    <Folder Include="Mapping\DepartmentMapping\Command\" />
+    <Folder Include="Features\Email\Queries\Hundllers\" />
+    <Folder Include="Features\Email\Queries\Models\" />
   </ItemGroup>
 
 </Project>

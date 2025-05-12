@@ -6,7 +6,8 @@ using School.Service.Abstract;
 namespace School.Core.Features.Authentication.Queries.Hundller
 {
     public class AuthenticationQueryHandler : ResponseHandler,
-       IRequestHandler<AuthorizeUserQuery, Response<string>>
+       IRequestHandler<AuthorizeUserQuery, Response<string>>,
+       IRequestHandler<ConfirmEmailQuery, Response<string>>
 
 
     {
@@ -25,6 +26,14 @@ namespace School.Core.Features.Authentication.Queries.Hundller
             if (result == "NotExpired")
                 return Success(result);
             return Unauthorized<string>();
+        }
+
+        public async Task<Response<string>> Handle(ConfirmEmailQuery request, CancellationToken cancellationToken)
+        {
+            var confirmEmail = await _authenticationService.ConfirmEmail(request.UserId, request.Code);
+            if (confirmEmail == "ErrorWhenConfirmEmail")
+                return BadRequest<string>("ErrorWhenConfirmEmail");
+            return Success<string>("ConfirmEmailDone");
         }
     }
 }

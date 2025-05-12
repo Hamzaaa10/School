@@ -10,7 +10,9 @@ namespace School.Core.Features.Authentication.Command.Hundellers
 {
     public class AuthenticationCommandHundller : ResponseHandler,
          IRequestHandler<SignInCommand, Response<JwtAuthResponse>>,
-         IRequestHandler<RefreshTokenCommand, Response<JwtAuthResponse>>
+         IRequestHandler<RefreshTokenCommand, Response<JwtAuthResponse>>,
+         IRequestHandler<ResetPasswordCommand, Response<string>>
+
 
     {
         private readonly UserManager<User> _userManager;
@@ -31,7 +33,8 @@ namespace School.Core.Features.Authentication.Command.Hundellers
             if (user == null) return NotFound<JwtAuthResponse>("No user found such that username");
             var SignInresult = await _userManager.CheckPasswordAsync(user, request.Password);
             if (!SignInresult) return BadRequest<JwtAuthResponse>("PasswordNotCorrect");
-
+            if (!user.EmailConfirmed)
+                return BadRequest<JwtAuthResponse>("EmailNotConfirmed");
             var accesstoken = await _authenticationService.GetJWTtoken(user);
             return Success(accesstoken);
 
@@ -57,6 +60,19 @@ namespace School.Core.Features.Authentication.Command.Hundellers
             var result = await _authenticationService.GetRefreshToken(user, jwtToken, expiryDate, request.RefreshToken);
             return Success(result);
 
+        }
+
+        public async Task<Response<string>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _authenticationService.SendResetPasswordCode(request.Email);
+            switch (result)
+            {
+                case "UserNotFound": return BadRequest<string>("UserIsNotFound");
+                case "ErrorInUpdateUser": return BadRequest<string>("TryAgainInAnotherTime");
+                case "Failed": return BadRequest<string>("TryAgainInAnotherTime");
+                case "Success": return Success<string>("");
+                default: return BadRequest<string>("TryAgainInAnotherTime");
+            }
         }
     }
 }

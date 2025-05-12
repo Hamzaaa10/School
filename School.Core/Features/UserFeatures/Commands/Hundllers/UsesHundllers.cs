@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using School.Core.Bases;
 using School.Core.Features.UserFeatures.Commands.Modeles;
 using School.Data.Models.Identity;
+using School.Service.Abstract;
 
 namespace School.Core.Features.UserFeatures.Commands.Hundllers
 {
@@ -15,29 +16,33 @@ namespace School.Core.Features.UserFeatures.Commands.Hundllers
 
     {
         private readonly IMapper _mapper;
+        private readonly IApplicationUserService _applicationUserService;
         private readonly UserManager<User> _userManager;
 
 
 
-        public UsesHundllers(UserManager<User> userManager, IMapper mapper)
+
+        public UsesHundllers(UserManager<User> userManager, IMapper mapper, IApplicationUserService applicationUserService)
         {
             this._mapper = mapper;
+            this._applicationUserService = applicationUserService;
             this._userManager = userManager;
         }
 
         public async Task<Response<string>> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user != null) return BadRequest<string>("this email is exists");
-            var userdb = await _userManager.FindByNameAsync(request.UserName);
-            if (userdb != null) return BadRequest<string>("the username is exists");
+
             var NewUser = _mapper.Map<User>(request);
-            var result = await _userManager.CreateAsync(NewUser, request.Password);
-
-            if (!result.Succeeded) return BadRequest<string>(result.Errors.FirstOrDefault().Description);
-            await _userManager.AddToRoleAsync(NewUser, "User");
-            return Created("Added succsesfully");
-
+            var createResult = await _applicationUserService.AddUserAsync(NewUser, request.Password);
+            switch (createResult)
+            {
+                case "EmailIsExist": return BadRequest<string>("EmailIsExist");
+                case "UserNameIsExist": return BadRequest<string>("UserNameIsExist");
+                case "ErrorInCreateUser": return BadRequest<string>("FaildToAddUser");
+                case "Failed": return BadRequest<string>("TryToRegisterAgain");
+                case "Success": return Success<string>("");
+                default: return BadRequest<string>(createResult);
+            }
         }
 
         public async Task<Response<string>> Handle(EditUserCommand request, CancellationToken cancellationToken)

@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using School.Data.Helpers;
 using School.Data.Models.Identity;
 using School.Infrastracture.AbstractRepository;
+using School.Infrastracture.Data;
 using School.Service.Abstract;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,15 +18,19 @@ namespace School.Service.Implemintation
         private readonly Jwtsettings _jwtsettings;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly UserManager<User> _userManager;
+        private readonly IEmailService _emailService;
+        private readonly AppDbContext _appDBContext;
 
         // private readonly IEncryptionProvider _encryptionProvider;
 
 
-        public AuthenticationService(Jwtsettings jwtsettings, IRefreshTokenRepository refreshTokenRepository, UserManager<User> userManager)
+        public AuthenticationService(Jwtsettings jwtsettings, IRefreshTokenRepository refreshTokenRepository, UserManager<User> userManager, IEmailService emailService, AppDbContext appDbContext)
         {
             _jwtsettings = jwtsettings;
             _refreshTokenRepository = refreshTokenRepository;
             _userManager = userManager;
+            _emailService = emailService;
+            _appDBContext = appDbContext;
         }
         public async Task<List<Claim>> GetClaims(User user)
         {
@@ -196,5 +201,47 @@ namespace School.Service.Implemintation
 
         }
 
+        /* public Task<string> ConfirmResetPassword(string AccessToken)
+         {
+             throw new NotImplementedException();
+         }*/
+
+        public async Task<string> ConfirmEmail(int UserId, string code)
+        {
+            var user = await _userManager.FindByIdAsync(UserId.ToString());
+            var confirmEmail = await _userManager.ConfirmEmailAsync(user, code);
+            if (!confirmEmail.Succeeded)
+                return "ErrorWhenConfirmEmail";
+            return "Success";
+        }
+
+        public async Task<string> SendResetPasswordCode(string Email)
+        {
+            var trans = await _appDBContext.Database.BeginTransactionAsync();
+            try
+            {
+                var User = await _userManager.FindByEmailAsync(Email);
+                if (User == null) return "UserNotFound";
+
+                var chars = "0123456789";
+                var random = new Random();
+                var Code = new string(Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
+                User.Code = Code;
+                var UpdateResult = await _userManager.UpdateAsync(User);
+                if (!UpdateResult.Succeeded) return "Error in Update User";
+                string message = "Code for Reset Password  " + Code;
+                await _emailService.SendEmailAsync(Email, message, "ResetPassword");
+                await trans.CommitAsync();
+                return "Success";
+
+            }
+            catch (Exception ex)
+            {
+                await trans.RollbackAsync();
+                return "Failed";
+            }
+        }
+
     }
 }
+

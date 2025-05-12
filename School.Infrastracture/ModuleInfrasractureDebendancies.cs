@@ -13,6 +13,9 @@ namespace School.Infrastracture
             services.AddTransient<ISubjectRepository, SubjectRepository>();
             services.AddTransient<IInstractorRepository, InstractorRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+            services.AddTransient<IStudentSubjectRepository, StudentSubjectRepository>();
+            services.AddTransient<IIns_SubjectRepository, Ins_SubjectRepository>();
+            services.AddTransient<IDepartmentSubjectRepository, DepartmentSubjectRepository>();
 
             services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             return services;

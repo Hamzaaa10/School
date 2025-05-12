@@ -1,5 +1,5 @@
 ﻿
-using School.Core.Features.Department.Quieries.Resposes;
+using School.Core.Features.DepartmentFeature.Query.Responses;
 using School.Data.Models;
 
 namespace School.Core.Mapping.DepartmentMapping

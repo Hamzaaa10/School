@@ -28,5 +28,17 @@ namespace School.Api.Controllers
             var response = await Mediator.Send(query);
             return NewResult(response);
         }
+        [HttpGet(Router.AuthenticationRouting.ConfirmEmail)]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmailQuery query)
+        {
+            var response = await Mediator.Send(query);
+            return NewResult(response);
+        }
+        [HttpPost(Router.AuthenticationRouting.SendResetPasswordCode)]
+        public async Task<IActionResult> SendResetPasswordCode([FromForm] ResetPasswordCommand command)
+        {
+            var Response = await Mediator.Send(command);
+            return NewResult(Response);
+        }
     }
 }

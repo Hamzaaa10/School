@@ -7,7 +7,8 @@ namespace School.Core.Mapping.AuthorizationMapping
         public AuthorizationProfile()
         {
             GetAllRolesMapping();
-            GetAllRolesMapping();
+            GetRoleByIdMapping();
         }
     }
+
 }

@@ -20,6 +20,28 @@
             public const string Paginated = Prefix + "/Paginated";
 
         }
+        public static class InstractorRouting
+        {
+            public const string Prefix = Rule + "Instractor";
+            public const string List = Prefix + "/List";
+            public const string GetByID = Prefix + "/{id}";
+            public const string Create = Prefix + "/Create";
+            public const string Update = Prefix + "/Edit";
+            public const string Delete = Prefix + "/Delete" + "/{id}";
+            public const string Paginated = Prefix + "/Paginated";
+
+        }
+        public static class SubjectRouting
+        {
+            public const string Prefix = Rule + "Subject";
+            public const string List = Prefix + "/List";
+            public const string GetByID = Prefix + "/{id}";
+            public const string Create = Prefix + "/Create";
+            public const string Update = Prefix + "/Edit";
+            public const string Delete = Prefix + "/Delete" + "/{id}";
+            public const string Paginated = Prefix + "/Paginated";
+
+        }
         public static class DepartmentRouting
         {
             public const string Prefix = Rule + "Department";
@@ -29,6 +51,37 @@
             public const string Update = Prefix + "/Edit";
             public const string Delete = Prefix + "/Delete" + "/{id}";
             public const string Paginated = Prefix + "/Paginated";
+
+        }
+        public static class DepartmentSubjectRouting
+        {
+            public const string Prefix = Rule + "DepartmentSubject";
+            public const string List = Rule + "Subjects" + "/Department" + "/{id}";
+            public const string GetByID = Prefix + "/{id}";
+            public const string Create = Prefix + "/Create";
+            public const string Update = Prefix + "/Edit";
+            public const string Delete = Prefix + "/Delete";
+
+        }
+        public static class Ins_SubjectRouting
+        {
+            public const string Prefix = Rule + "Ins_Subject";
+            public const string List = Rule + "Subjects" + "/Instractor" + "/{id}";
+            public const string GetByID = Prefix + "/{id}";
+            public const string Create = Prefix + "/Create";
+            public const string Update = Prefix + "/Edit";
+            public const string Delete = Prefix + "/Delete";
+
+        }
+
+        public static class StudentSubjectRouting
+        {
+            public const string Prefix = Rule + "StudentSubject";
+            public const string List = Rule + "Subjects" + "/Student" + "/{id}";
+            public const string GetByID = Prefix + "/{id}";
+            public const string Create = Prefix + "/Create";
+            public const string Update = Prefix + "/Edit";
+            public const string Delete = Prefix + "/Delete";
 
         }
         public static class UserRouting
@@ -49,6 +102,9 @@
             public const string SignIn = Prefix + "/SignIn";
             public const string RefreshToken = Prefix + "/RefreshToken";
             public const string ValidateToken = Prefix + "/ValidateToken";
+            public const string ConfirmEmail = "/Api/Authentication/ConfirmEmail";
+            public const string SendResetPasswordCode = Prefix + "/SendResetPasswordCode";
+
 
 
         }
@@ -69,6 +125,11 @@
 
 
 
+        }
+        public static class EmailRouting
+        {
+            public const string Prefix = Rule + "Email";
+            public const string SendEmail = Prefix + "Send";
         }
 
     }
